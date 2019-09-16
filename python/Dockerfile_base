@@ -1,0 +1,32 @@
+
+FROM alpine:3.4
+
+MAINTAINER Li Wei <1907732701@qq.com>
+
+ADD requirements.txt /home
+RUN apk update
+RUN apk add gcc
+RUN apk add py-pip \
+            python-dev \
+            libffi-dev \
+            musl-dev \
+            supervisor \
+            build-base \
+            linux-headers \
+            jpeg-dev \
+            zlib-dev \
+            freetds-dev freetds-bin  
+RUN apk add --update coreutils
+
+RUN pip install --upgrade pip
+RUN pip install --no-cache-dir -r /home/requirements.txt
+RUN pip install --no-cache-dir uwsgi
+RUN pip install --no-cache-dir celery==4.2.1
+
+RUN apk del python-dev libffi-dev build-base musl-dev linux-headers
+RUN rm -rf /var/cache/apk/* 
+RUN rm -rf /tmp/*
+
+EXPOSE 5000 5001
+
+

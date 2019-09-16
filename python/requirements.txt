@@ -1,0 +1,6 @@
+Flask
+Flask-SQLAlchemy
+pymssql
+pyyaml
+Flask-Restless
+flask-restless-swagger
